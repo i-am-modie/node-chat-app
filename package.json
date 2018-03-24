@@ -1,0 +1,27 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js",
+    "dev-start": "nodemon --exec \"npm start\""
+  },
+  "engines": {
+    "node": "^9.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/modestroy/node-chat-app.git"
+  },
+  "author": "MoDie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/modestroy/node-chat-app/issues"
+  },
+  "homepage": "https://github.com/modestroy/node-chat-app#readme",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}

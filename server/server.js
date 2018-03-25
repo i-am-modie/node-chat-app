@@ -20,7 +20,7 @@ io.on('connection', (socket)=>{
        console.log(`Message from ${newMessage.from}`, newMessage);
        let message = _.pick(newMessage, ['from', 'text']);
        message.CreatedAt = new Date().getTime();
-       socket.emit('newMessage', message);
+       io.emit('newMessage', message);
    });
 
    socket.on('disconnect', ()=>{

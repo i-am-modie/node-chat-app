@@ -3,10 +3,6 @@ var socket = io();
 socket.on('connect', function (){
     console.log('Connected to server');
 
-    socket.emit('createMessage', {
-        from: 'MoDie',
-        text: 'test1233232',
-    })
 });
 
 socket.on('newMessage', function (message) {

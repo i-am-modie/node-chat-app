@@ -4,6 +4,7 @@ const express = require('express');
 const socketIO = require('socket.io');
 const _ = require('lodash');
 
+const {generateMessage} = require('./utils/message');
 let app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
@@ -16,19 +17,12 @@ app.use(express.static(publicPath));
 io.on('connection', (socket)=>{
    console.log('New user connected');
 
-   socket.emit('newMessage', {
-       from: 'Admin',
-       text: 'Welcome to the soldier side',
-       CreatedAt: new Date().getTime()
-   });
+   socket.emit('newMessage', generateMessage('Admin', 'Welcome to the soldier side'));
 
-   socket.broadcast.emit('newMessage', {
-       from: 'Admin',
-       text: 'Someone joined will he say "Hi" or it\' ordinary creep?',
-       CreatedAt: new Date().getTime()
-   });
+   socket.broadcast.emit('newMessage', generateMessage('Admin', 'Someone joined will he say "Hi" or it\'s ordinary creep?'));
 
-   socket.on('createMessage',(newMessage)=>{
+   socket.on('createMessage',(newMessage, callback)=>{
+       callback();
        console.log(`Message from ${newMessage.from}`, newMessage);
        let message = _.pick(newMessage, ['from', 'text']);
        message.CreatedAt = new Date().getTime();

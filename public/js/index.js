@@ -12,3 +12,10 @@ socket.on('newMessage', function (message) {
 socket.on('disconnect', function (){
     console.log('disconnected from server');
 });
+
+socket.emit('createMessage', {
+    from: 'SomeCreep',
+    text: 'Hi!'
+}, function () {
+    console.log('Got it');
+});

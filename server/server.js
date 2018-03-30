@@ -2,9 +2,8 @@ const path = require('path');
 const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
-const _ = require('lodash');
 
-const {generateMessage} = require('./utils/message');
+const {generateMessage, generateLocationMessage} = require('./utils/message');
 let app = express();
 let server = http.createServer(app);
 let io = socketIO(server);
@@ -22,11 +21,13 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('newMessage', generateMessage('Admin', 'Someone joined will he say "Hi" or it\'s ordinary creep?'));
 
     socket.on('createMessage', (newMessage, callback) => {
-        callback();
         console.log(`Message from ${newMessage.from}`, newMessage);
-        let message = _.pick(newMessage, ['from', 'text']);
-        message.CreatedAt = new Date().getTime();
-        socket.broadcast.emit('newMessage', message);
+        io.emit('newMessage', generateMessage(newMessage.from, newMessage.text));
+        callback('This is from the server');
+    });
+
+    socket.on('createLocationMessage', (coords) => {
+        io.emit('newLocationMessage', generateLocationMessage(coords.from, coords.latitude, coords.longtitude));
     });
 
     socket.on('disconnect', () => {

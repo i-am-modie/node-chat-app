@@ -14,26 +14,26 @@ const publicPath = path.join(__dirname, '../public');
 
 app.use(express.static(publicPath));
 
-io.on('connection', (socket)=>{
-   console.log('New user connected');
+io.on('connection', (socket) => {
+    console.log('New user connected');
 
-   socket.emit('newMessage', generateMessage('Admin', 'Welcome to the soldier side'));
+    socket.emit('newMessage', generateMessage('Admin', 'Welcome to the soldier side'));
 
-   socket.broadcast.emit('newMessage', generateMessage('Admin', 'Someone joined will he say "Hi" or it\'s ordinary creep?'));
+    socket.broadcast.emit('newMessage', generateMessage('Admin', 'Someone joined will he say "Hi" or it\'s ordinary creep?'));
 
-   socket.on('createMessage',(newMessage, callback)=>{
-       callback();
-       console.log(`Message from ${newMessage.from}`, newMessage);
-       let message = _.pick(newMessage, ['from', 'text']);
-       message.CreatedAt = new Date().getTime();
-       socket.broadcast.emit('newMessage', message);
-   });
+    socket.on('createMessage', (newMessage, callback) => {
+        callback();
+        console.log(`Message from ${newMessage.from}`, newMessage);
+        let message = _.pick(newMessage, ['from', 'text']);
+        message.CreatedAt = new Date().getTime();
+        socket.broadcast.emit('newMessage', message);
+    });
 
-   socket.on('disconnect', ()=>{
-       console.log('User disconnected');
-   });
+    socket.on('disconnect', () => {
+        console.log('User disconnected');
+    });
 });
 
-server.listen(port, ()=>{
+server.listen(port, () => {
     console.log(`Started on port ${port}`);
 });

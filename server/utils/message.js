@@ -1,5 +1,5 @@
 let generateMessage = (from, text) => {
-    return{
+    return {
         from,
         text,
         createdAt: new Date().getTime()

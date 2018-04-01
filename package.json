@@ -24,6 +24,7 @@
   "homepage": "https://github.com/modestroy/node-chat-app#readme",
   "dependencies": {
     "express": "^4.16.3",
+    "moment": "^2.22.0",
     "socket.io": "^2.0.4"
   },
   "devDependencies": {
